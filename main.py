@@ -13,14 +13,13 @@ class BigText(BaseModel):
 @app.post('/save_data')
 def save_data(payload: BigText):
     text = payload.text
-    date = payload.date
     user_token = payload.user_token
     user_token = 1
     for _ in range(5):
         try:
             macros_raw_data = json.loads(get_ai_response(text))
             for product in macros_raw_data:
-                add_product(product, date, user_token)
+                add_product(product, user_token)
             break
         except json.decoder.JSONDecodeError:
             print('Trying again...')
