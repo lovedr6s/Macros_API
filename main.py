@@ -8,13 +8,13 @@ app = FastAPI()
 
 class BigText(BaseModel):
     text: str
+    user_token: str
 
 
 @app.post('/save_data')
 def save_data(payload: BigText):
     text = payload.text
     user_token = payload.user_token
-    user_token = 1
     for _ in range(5):
         try:
             macros_raw_data = json.loads(get_ai_response(text))
