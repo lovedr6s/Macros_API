@@ -3,6 +3,7 @@ from fastapi import FastAPI, Header, Query
 from pydantic import BaseModel
 from app.chatgpt import get_ai_response
 from app.db_connect import add_product, get_products
+from datetime import date
 app = FastAPI()
 
 
@@ -27,7 +28,7 @@ def save_data(payload: BigText):
 
 @app.get('/get_data')
 def get_data(
-        date: str = Query(...),
+        date: date = Query(...),
         user_token: str = Header(...)
     ):
     return get_products(date, user_token) #returns json
