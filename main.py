@@ -15,6 +15,26 @@ class BigText(BaseModel): #noqa: D101
     user_token: str
 
 
+@app.post('/get_macros')
+def get_macros(payload: BigText):
+    """Get products macros.
+
+    Args:
+        payload (str): should contain text with products
+
+    Returns:
+        json: json file with macros
+
+    """
+    text = payload.text
+    for _ in range(5):
+        try:
+            macros_raw_data = json.loads(get_ai_response(text))
+            return macros_raw_data
+        except json.decoder.JSONDecodeError:
+            print("Trying again...")
+
+
 @app.post('/save_data')
 def save_data(payload: BigText):
     """Save user's products.
